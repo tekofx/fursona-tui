@@ -18,7 +18,9 @@ func (m Model) GetInfoString() string {
 		infoString += fmt.Sprintf(" %s\n", style.H1.Render(m.Surname))
 	}
 	infoString += "--------\n"
-	infoString += fmt.Sprintf("%s: %s", style.Key.Render("Species"), style.Dimmed.Render(m.Species))
+	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Dimmed.Render(m.Species))
+	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Dimmed.Render(m.Gender))
+	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Dimmed.Render(m.Pronouns))
 
 	return infoString
 }
@@ -31,18 +33,22 @@ type Model struct {
 	Name          string
 	Surname       string
 	Species       string
+	Gender        string
+	Pronouns      string
 	textViewport  viewport.Model
 	imageViewPort viewport.Model
 }
 
 func InitialModel() Model {
-	textViewport := viewport.New(30, 5)
+	textViewport := viewport.New(30, 30)
 	imageViewport := viewport.New(30, 30)
 
 	return Model{
 		Name:          "Teko",
 		Surname:       "Fresnes Xaiden",
 		Species:       "Arctic Fox",
+		Gender:        "Male",
+		Pronouns:      "He/Him",
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
 	}
@@ -78,6 +84,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// Set size of window
 		m.height = msg.Height
 		m.width = msg.Width
+		m.sizeInputs()
 
 		// Get info to show
 		textContent := m.GetInfoString()
@@ -97,7 +104,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Suspend
 		}
 	}
-	m.sizeInputs()
 
 	return m, tea.Batch(vpCmd)
 }
