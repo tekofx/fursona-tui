@@ -45,7 +45,7 @@ func (m Model) Init() tea.Cmd {
 
 func (m Model) View() string {
 
-	return lipgloss.JoinHorizontal(lipgloss.Top, m.imageViewPort.View(), m.textViewport.View())
+	return lipgloss.JoinHorizontal(lipgloss.Center, m.imageViewPort.View(), m.textViewport.View())
 
 }
 func (m *Model) sizeInputs() {

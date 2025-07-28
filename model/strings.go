@@ -10,7 +10,7 @@ import (
 
 func getColorPalette(m Model) string {
 
-	output := style.H1.Render("Color Palette")
+	output := style.Default.Render("Color Palette")
 
 	for i, color := range m.Palette {
 		if i%5 == 0 {
@@ -27,14 +27,14 @@ func getColorPalette(m Model) string {
 func GetInfoString(m Model) string {
 	infoString := ""
 
-	infoString += style.H1.Render(m.Name)
+	infoString += style.Default.Render(m.Name)
 	if m.Surname != "" {
-		infoString += fmt.Sprintf(" %s\n", style.H1.Render(m.Surname))
+		infoString += fmt.Sprintf(" %s\n", style.Default.Render(m.Surname))
 	}
 	infoString += "--------\n"
-	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Dimmed.Render(m.Species))
-	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Dimmed.Render(m.Gender))
-	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Dimmed.Render(m.Pronouns))
+	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Default.Render(m.Species))
+	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Default.Render(m.Gender))
+	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Default.Render(m.Pronouns))
 	infoString += fmt.Sprintf("\n%s \n", getColorPalette(m))
 	return infoString
 }
