@@ -81,8 +81,8 @@ func ReadConfig() *Config {
 			return &defaultConfig
 		}
 		defer file.Close()
-
 		encoder := json.NewEncoder(file)
+		encoder.SetIndent("", "  ")
 		if err := encoder.Encode(defaultConfig); err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to write default config:", err)
 			return &defaultConfig
