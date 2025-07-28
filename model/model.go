@@ -10,14 +10,27 @@ import (
 	"github.com/tekofx/fursona-tui/style"
 )
 
+func (m Model) GetInfoString() string {
+	infoString := ""
+
+	infoString += style.H1.Render(m.Name)
+	if m.Surname != "" {
+		infoString += fmt.Sprintf(" %s\n", style.H1.Render(m.Surname))
+	}
+	infoString += "--------\n"
+	infoString += style.Dimmed.Render(m.Species)
+
+	return infoString
+}
+
 const gap = "\n\n"
 
 type Model struct {
 	width         int
 	height        int
-	name          string
-	surname       string
-	species       string
+	Name          string
+	Surname       string
+	Species       string
 	textViewport  viewport.Model
 	imageViewPort viewport.Model
 }
@@ -27,9 +40,9 @@ func InitialModel() Model {
 	imageViewport := viewport.New(30, 30)
 
 	return Model{
-		name:          "Teko",
-		surname:       "Fresnes Xaiden",
-		species:       "Arctic Fox",
+		Name:          "Teko",
+		Surname:       "Fresnes Xaiden",
+		Species:       "Arctic Fox",
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
 	}
@@ -61,14 +74,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
+
+		// Set size of window
 		m.height = msg.Height
 		m.width = msg.Width
-		textContent := fmt.Sprintf("%s\n%s\n%s",
-			style.H1.Render(m.name),
-			style.Dimmed.Render(m.surname),
-			style.Dimmed.Render(m.species),
-		)
 
+		// Get info to show
+		textContent := m.GetInfoString()
 		imageContent := image.Image2Ascii()
 
 		// Wrap content before setting it.
