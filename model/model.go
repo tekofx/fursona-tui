@@ -1,7 +1,10 @@
 package model
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
@@ -10,12 +13,44 @@ import (
 	"github.com/tekofx/fursona-tui/style"
 )
 
-func getColorPalette() string {
-	output := fmt.Sprintf("%s %s %s",
-		lipgloss.NewStyle().Background(lipgloss.Color("#EB58C7")).Render("#1234"),
-		lipgloss.NewStyle().Background(lipgloss.Color("#00DBFF")).Render("#1224"),
-		lipgloss.NewStyle().Background(lipgloss.Color("#2C7DE6")).Render("#1224"),
-	)
+type Config struct {
+	Name     string   `json:"name"`
+	Surname  string   `json:"surname"`
+	Species  string   `json:"species"`
+	Gender   string   `json:"gender"`
+	Pronouns string   `json:"pronouns"`
+	Palette  []string `json:"palette"`
+}
+
+func readConfig(path string) (*Config, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+
+	var config Config
+	if err := json.Unmarshal(bytes, &config); err != nil {
+		return nil, err
+	}
+	return &config, nil
+}
+
+func (m Model) getColorPalette() string {
+
+	output := ""
+
+	colors := m.Palette
+
+	for _, c := range colors {
+		output += lipgloss.NewStyle().Background(lipgloss.Color(c)).Render(c)
+
+	}
 
 	return output
 
@@ -31,7 +66,7 @@ func (m Model) GetInfoString() string {
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Dimmed.Render(m.Species))
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Dimmed.Render(m.Gender))
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Dimmed.Render(m.Pronouns))
-	infoString += getColorPalette()
+	infoString += m.getColorPalette()
 
 	return infoString
 }
@@ -46,6 +81,7 @@ type Model struct {
 	Species       string
 	Gender        string
 	Pronouns      string
+	Palette       []string
 	textViewport  viewport.Model
 	imageViewPort viewport.Model
 }
@@ -54,12 +90,18 @@ func InitialModel() Model {
 	textViewport := viewport.New(150, 50)
 	imageViewport := viewport.New(50, 50)
 
+	config, err := readConfig("settings.json")
+	if err != nil {
+		panic("Error reading config")
+	}
+
 	return Model{
-		Name:          "Teko",
-		Surname:       "Fresnes Xaiden",
-		Species:       "Arctic Fox",
-		Gender:        "Male",
-		Pronouns:      "He/Him",
+		Name:          config.Name,
+		Surname:       config.Surname,
+		Species:       config.Species,
+		Gender:        config.Gender,
+		Pronouns:      config.Pronouns,
+		Palette:       config.Palette,
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
 	}
