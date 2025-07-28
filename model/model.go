@@ -61,6 +61,7 @@ func InitialModel() Model {
 	imageViewport := viewport.New(50, 50)
 
 	config := config.ReadConfig()
+	fmt.Println(config)
 
 	return Model{
 		Name:          config.Name,

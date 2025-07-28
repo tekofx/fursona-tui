@@ -18,7 +18,7 @@ type Config struct {
 	Palette  []string `json:"palette"`
 }
 
-func getConfigPath() string {
+func GetConfigPath() string {
 	var configDir string
 
 	if runtime.GOOS == "windows" {
@@ -30,7 +30,7 @@ func getConfigPath() string {
 				fmt.Fprintln(os.Stderr, "Failed to get home directory:", err)
 				return ""
 			}
-			return filepath.Join(dir, "fursona-tui", "settings.json")
+			return filepath.Join(dir, "fursona-tui")
 		}
 		configDir = filepath.Join(dir, "fursona-tui")
 	} else {
@@ -42,7 +42,7 @@ func getConfigPath() string {
 		configDir = filepath.Join(dir, ".config", "fursona-tui")
 	}
 
-	return filepath.Join(configDir, "settings.json")
+	return configDir
 }
 
 func defaultConfig() Config {
@@ -59,12 +59,12 @@ func defaultConfig() Config {
 }
 
 func ReadConfig() *Config {
-	configPath := getConfigPath()
+	configPath := GetConfigPath()
+	settingsFilePath := filepath.Join(configPath, "settings.json")
 
 	// Create config dir if it does not exist
-	configDir := filepath.Dir(configPath)
-	if _, err := os.Stat(configDir); os.IsNotExist(err) {
-		if err := os.MkdirAll(configDir, 0755); err != nil {
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		if err := os.MkdirAll(configPath, 0755); err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create config directory:", err)
 			config := defaultConfig()
 			return &config
@@ -72,10 +72,10 @@ func ReadConfig() *Config {
 	}
 
 	// Check if config file exists
-	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+	if _, err := os.Stat(settingsFilePath); os.IsNotExist(err) {
 		// Create default config
 		defaultConfig := defaultConfig()
-		file, err := os.Create(configPath)
+		file, err := os.Create(settingsFilePath)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create config file:", err)
 			return &defaultConfig
@@ -88,12 +88,12 @@ func ReadConfig() *Config {
 			return &defaultConfig
 		}
 
-		fmt.Printf("No config detected, config created at %s.\n", configPath)
+		fmt.Printf("No config detected, config created at %s.\n", settingsFilePath)
 		fmt.Println("Please edit the configuration file to modify the data showed.")
 		os.Exit(0)
 	}
 
-	file, err := os.Open(configPath)
+	file, err := os.Open(settingsFilePath)
 	if err != nil {
 		return nil
 	}
