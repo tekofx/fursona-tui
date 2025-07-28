@@ -10,6 +10,16 @@ import (
 	"github.com/tekofx/fursona-tui/style"
 )
 
+func getColorPalette() string {
+	output := fmt.Sprintf("%s %s %s",
+		lipgloss.NewStyle().Background(lipgloss.Color("#EB58C7")).Render("#1234"),
+		lipgloss.NewStyle().Background(lipgloss.Color("#00DBFF")).Render("#1224"),
+		lipgloss.NewStyle().Background(lipgloss.Color("#2C7DE6")).Render("#1224"),
+	)
+
+	return output
+
+}
 func (m Model) GetInfoString() string {
 	infoString := ""
 
@@ -21,6 +31,7 @@ func (m Model) GetInfoString() string {
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Dimmed.Render(m.Species))
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Dimmed.Render(m.Gender))
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Dimmed.Render(m.Pronouns))
+	infoString += getColorPalette()
 
 	return infoString
 }
@@ -40,8 +51,8 @@ type Model struct {
 }
 
 func InitialModel() Model {
-	textViewport := viewport.New(30, 30)
-	imageViewport := viewport.New(30, 30)
+	textViewport := viewport.New(150, 50)
+	imageViewport := viewport.New(50, 50)
 
 	return Model{
 		Name:          "Teko",
@@ -80,7 +91,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
-
+		fmt.Print(msg.Width)
 		// Set size of window
 		m.height = msg.Height
 		m.width = msg.Width
