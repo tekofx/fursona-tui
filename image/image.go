@@ -19,7 +19,7 @@ func Image2Ascii() string {
 	height := bounds.Dy()
 
 	// Aspect ratio correction factor (experiment with 0.5–0.6)
-	aspectRatio := 0.5
+	aspectRatio := 0.45
 	newHeight := uint(float64(height) * aspectRatio)
 
 	// Resize image
@@ -28,7 +28,7 @@ func Image2Ascii() string {
 	converter := convert.NewImageConverter()
 	ascii := converter.Image2ASCIIString(resized, &convert.Options{
 		Colored:     true,
-		FixedHeight: 20,
+		FixedHeight: 15,
 	})
 	return ascii
 }

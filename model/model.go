@@ -1,7 +1,7 @@
 package model
 
 import (
-	"fmt"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
@@ -21,6 +21,16 @@ type Model struct {
 	Palette       []string
 	textViewport  viewport.Model
 	imageViewPort viewport.Model
+	imageText     string
+	imageLength   int
+}
+
+func FirstLineLength(s string) int {
+	idx := strings.Index(s, "\n")
+	if idx == -1 {
+		return len(s)
+	}
+	return idx
 }
 
 func InitialModel() Model {
@@ -36,6 +46,8 @@ func InitialModel() Model {
 		Palette:       config.Palette,
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
+		imageText:     image.Image2Ascii(),
+		imageLength:   35,
 	}
 }
 func (m Model) Init() tea.Cmd {
@@ -53,8 +65,8 @@ func (m *Model) sizeInputs() {
 	m.textViewport.Width = m.width / 2
 	m.textViewport.Height = m.height
 
-	m.imageViewPort.Width = m.width / 2
 	m.imageViewPort.Height = m.height
+	m.imageViewPort.Width = m.imageLength
 }
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var (
@@ -65,19 +77,16 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
-		fmt.Print(msg.Width)
 		// Set size of window
 		m.height = msg.Height
 		m.width = msg.Width
-		m.sizeInputs()
 
 		// Get info to show
 		textContent := GetInfoString(m)
-		imageContent := image.Image2Ascii()
 
 		// Wrap content before setting it.
 		m.textViewport.SetContent(textContent)
-		m.imageViewPort.SetContent(imageContent)
+		m.imageViewPort.SetContent(m.imageText)
 
 		m.textViewport.GotoBottom()
 
@@ -89,6 +98,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Suspend
 		}
 	}
+	m.sizeInputs()
 
 	return m, tea.Batch(vpCmd)
 }
