@@ -1,45 +1,15 @@
 package model
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"os"
 
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/tekofx/fursona-tui/config"
 	"github.com/tekofx/fursona-tui/image"
 	"github.com/tekofx/fursona-tui/style"
 )
-
-type Config struct {
-	Name     string   `json:"name"`
-	Surname  string   `json:"surname"`
-	Species  string   `json:"species"`
-	Gender   string   `json:"gender"`
-	Pronouns string   `json:"pronouns"`
-	Palette  []string `json:"palette"`
-}
-
-func readConfig(path string) (*Config, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	bytes, err := ioutil.ReadAll(file)
-	if err != nil {
-		return nil, err
-	}
-
-	var config Config
-	if err := json.Unmarshal(bytes, &config); err != nil {
-		return nil, err
-	}
-	return &config, nil
-}
 
 func (m Model) getColorPalette() string {
 
@@ -90,10 +60,7 @@ func InitialModel() Model {
 	textViewport := viewport.New(150, 50)
 	imageViewport := viewport.New(50, 50)
 
-	config, err := readConfig("settings.json")
-	if err != nil {
-		panic("Error reading config")
-	}
+	config := config.ReadConfig()
 
 	return Model{
 		Name:          config.Name,
