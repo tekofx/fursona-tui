@@ -18,7 +18,7 @@ func (m Model) GetInfoString() string {
 		infoString += fmt.Sprintf(" %s\n", style.H1.Render(m.Surname))
 	}
 	infoString += "--------\n"
-	infoString += style.Dimmed.Render(m.Species)
+	infoString += fmt.Sprintf("%s: %s", style.Key.Render("Species"), style.Dimmed.Render(m.Species))
 
 	return infoString
 }
