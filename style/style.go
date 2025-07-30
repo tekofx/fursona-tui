@@ -5,4 +5,5 @@ import "github.com/charmbracelet/lipgloss"
 var (
 	Default = lipgloss.NewStyle().Foreground(lipgloss.Color("#FFFFFF"))
 	Key     = lipgloss.NewStyle().Foreground(lipgloss.Color("#EB58C7"))
+	Error   = lipgloss.NewStyle().Foreground(lipgloss.Color("#FF4D4D"))
 )

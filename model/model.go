@@ -52,7 +52,7 @@ func (m Model) View() string {
 }
 func (m *Model) sizeInputs() {
 
-	m.textViewport.Width = m.width / 2
+	m.textViewport.Width = m.width - m.imageLength
 	m.textViewport.Height = m.height
 
 	m.imageViewPort.Height = m.height
