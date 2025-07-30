@@ -1,12 +1,17 @@
 package model
 
 import (
+	"fmt"
+
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/tekofx/fursona-tui/config"
 	"github.com/tekofx/fursona-tui/image"
 )
+
+const minWidth = 100
+const minHeight = 25
 
 type Model struct {
 	width         int
@@ -43,6 +48,16 @@ func (m Model) Init() tea.Cmd {
 
 func (m Model) View() string {
 
+	if m.width < minWidth || m.height < minHeight {
+		// Center the message using Lipgloss
+		msg := fmt.Sprintf("Window too small!\nPlease resize your terminal.\n%dx%d", m.width, m.height)
+		style := lipgloss.NewStyle().
+			Width(m.width).
+			Height(m.height).
+			Align(lipgloss.Center)
+		return style.Render(msg)
+	}
+
 	return lipgloss.JoinHorizontal(lipgloss.Center, " ", m.imageViewPort.View(), "  ", m.textViewport.View(), " ")
 
 }
@@ -63,18 +78,21 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
+
 		// Set size of window
 		m.height = msg.Height
 		m.width = msg.Width
 
-		// Get info to show
-		textContent := GetInfoString(m)
+		if m.width > minWidth && m.height > minHeight {
+			// Get info to show
+			textContent := GetInfoString(m)
 
-		// Wrap content before setting it.
-		m.textViewport.SetContent(textContent)
-		m.imageViewPort.SetContent(image.Image2Ascii(msg.Width / 2))
+			// Wrap content before setting it.
+			m.textViewport.SetContent(textContent)
+			m.imageViewPort.SetContent(image.Image2Ascii(msg.Width / 2))
 
-		m.textViewport.GotoBottom()
+			m.textViewport.GotoBottom()
+		}
 
 	case tea.KeyMsg:
 		switch msg.String() {
