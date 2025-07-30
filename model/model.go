@@ -1,8 +1,6 @@
 package model
 
 import (
-	"strings"
-
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -25,14 +23,6 @@ type Model struct {
 	imageLength   int
 }
 
-func FirstLineLength(s string) int {
-	idx := strings.Index(s, "\n")
-	if idx == -1 {
-		return len(s)
-	}
-	return idx
-}
-
 func InitialModel() Model {
 	textViewport := viewport.New(150, 50)
 	imageViewport := viewport.New(50, 50)
@@ -47,7 +37,7 @@ func InitialModel() Model {
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
 		imageText:     image.Image2Ascii(),
-		imageLength:   35,
+		imageLength:   30,
 	}
 }
 func (m Model) Init() tea.Cmd {
