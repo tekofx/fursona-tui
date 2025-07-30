@@ -19,8 +19,6 @@ type Model struct {
 	Palette       []string
 	textViewport  viewport.Model
 	imageViewPort viewport.Model
-	imageText     string
-	imageLength   int
 }
 
 func InitialModel() Model {
@@ -36,8 +34,6 @@ func InitialModel() Model {
 		Palette:       config.Palette,
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
-		imageText:     image.Image2Ascii(),
-		imageLength:   30,
 	}
 }
 func (m Model) Init() tea.Cmd {
@@ -47,16 +43,16 @@ func (m Model) Init() tea.Cmd {
 
 func (m Model) View() string {
 
-	return lipgloss.JoinHorizontal(lipgloss.Center, m.imageViewPort.View(), "  ", m.textViewport.View())
+	return lipgloss.JoinHorizontal(lipgloss.Center, " ", m.imageViewPort.View(), "  ", m.textViewport.View(), " ")
 
 }
 func (m *Model) sizeInputs() {
 
-	m.textViewport.Width = m.width - m.imageLength
+	m.textViewport.Width = (m.width / 2) - 2
 	m.textViewport.Height = m.height
 
+	m.imageViewPort.Width = (m.width / 2) - 2
 	m.imageViewPort.Height = m.height
-	m.imageViewPort.Width = m.imageLength
 }
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var (
@@ -76,7 +72,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		// Wrap content before setting it.
 		m.textViewport.SetContent(textContent)
-		m.imageViewPort.SetContent(m.imageText)
+		m.imageViewPort.SetContent(image.Image2Ascii(msg.Width / 2))
 
 		m.textViewport.GotoBottom()
 

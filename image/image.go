@@ -16,7 +16,7 @@ import (
 	"github.com/tekofx/fursona-tui/style"
 )
 
-func Image2Ascii() string {
+func Image2Ascii(size int) string {
 	configPath := config.GetConfigPath()
 	var img image.Image
 
@@ -50,7 +50,6 @@ func Image2Ascii() string {
 	}
 
 	// Set size of image
-	size := 30
 
 	// Aspect ratio correction factor (experiment with 0.5–0.6)
 	aspectRatio := 0.45
