@@ -10,14 +10,20 @@ import (
 
 func getColorPalette(m Model) string {
 
-	output := style.Default.Render("Color Palette")
+	output := style.Heading2.Render("Color Palette")
 
 	for i, color := range m.Palette {
 		if i%5 == 0 {
 			output += "\n"
 		}
 		text := utils.GetContrastColor(color)
-		output += lipgloss.NewStyle().Background(lipgloss.Color(color)).Foreground(lipgloss.Color(text)).PaddingLeft(1).PaddingRight(1).Render(color)
+		output += lipgloss.
+			NewStyle().
+			Background(lipgloss.Color(color)).
+			Foreground(lipgloss.Color(text)).
+			PaddingLeft(1).
+			PaddingRight(1).
+			Render(color)
 	}
 
 	return output
@@ -27,9 +33,9 @@ func getColorPalette(m Model) string {
 func GetInfoString(m Model) string {
 	infoString := ""
 
-	infoString += style.Default.Render(m.Name)
+	infoString += style.Heading1.Render(m.Name)
 	if m.Surname != "" {
-		infoString += fmt.Sprintf(" %s\n", style.Default.Render(m.Surname))
+		infoString += fmt.Sprintf(" %s\n", style.Heading1.Render(m.Surname))
 	}
 	infoString += "--------\n"
 	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Default.Render(m.Species))
