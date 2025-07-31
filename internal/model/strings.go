@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/tekofx/fursona-tui/style"
-	"github.com/tekofx/fursona-tui/utils"
+	"github.com/tekofx/fursona-tui/internal/style"
+	"github.com/tekofx/fursona-tui/internal/utils"
 )
 
 func getColorPalette(m Model) string {

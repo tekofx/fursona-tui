@@ -12,8 +12,8 @@ import (
 
 	"github.com/nfnt/resize"
 	"github.com/qeesung/image2ascii/convert"
-	"github.com/tekofx/fursona-tui/config"
-	"github.com/tekofx/fursona-tui/style"
+	"github.com/tekofx/fursona-tui/internal/config"
+	"github.com/tekofx/fursona-tui/internal/style"
 )
 
 func Image2Ascii(size int) string {

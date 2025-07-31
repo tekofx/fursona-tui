@@ -6,8 +6,8 @@ import (
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/tekofx/fursona-tui/config"
-	"github.com/tekofx/fursona-tui/image"
+	"github.com/tekofx/fursona-tui/internal/config"
+	"github.com/tekofx/fursona-tui/internal/image"
 )
 
 const minWidth = 100

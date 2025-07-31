@@ -4,7 +4,7 @@ import (
 	"log"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/tekofx/fursona-tui/model"
+	"github.com/tekofx/fursona-tui/internal/model"
 )
 
 func main() {
