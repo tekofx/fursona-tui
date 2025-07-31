@@ -10,13 +10,9 @@ import (
 )
 
 type Config struct {
-	Name      string            `json:"name"`
-	Surname   string            `json:"surname"`
-	Species   string            `json:"species"`
-	Gender    string            `json:"gender"`
-	Pronouns  string            `json:"pronouns"`
-	Palette   []string          `json:"palette"`
-	OtherData map[string]string `json:"otherData"`
+	Name    string            `json:"name"`
+	Palette []string          `json:"palette"`
+	Data    map[string]string `json:"data"`
 }
 
 func GetConfigPath() string {
@@ -50,15 +46,12 @@ func DefaultConfig() Config {
 
 	palette := [2]string{"#FFFFFF", "#000000"}
 	return Config{
-		Name:     "Name",
-		Surname:  "Surname",
-		Species:  "Species",
-		Gender:   "Gender",
-		Pronouns: "Pronouns",
-		Palette:  palette[:],
-		OtherData: map[string]string{
-			"favorite_food": "pizza",
-			"hobby":         "drawing",
+		Name:    "Name",
+		Palette: palette[:],
+		Data: map[string]string{
+			"species":  "Species",
+			"Gender":   "Gender",
+			"Pronouns": "Pronouns",
 		},
 	}
 }
