@@ -12,7 +12,7 @@ func getColorPalette(m Model) string {
 
 	output := style.Heading2.Render("Color Palette")
 
-	for i, color := range m.Palette {
+	for i, color := range m.Config.Palette {
 		if i%5 == 0 {
 			output += "\n"
 		}
@@ -32,15 +32,32 @@ func getColorPalette(m Model) string {
 
 func GetInfoString(m Model) string {
 	infoString := ""
-
-	infoString += style.Heading1.Render(m.Name)
-	if m.Surname != "" {
-		infoString += fmt.Sprintf(" %s\n", style.Heading1.Render(m.Surname))
+	infoString += style.Heading1.Render(m.Config.Name)
+	if m.Config.Surname != "" {
+		infoString += fmt.Sprintf(" %s\n", style.Heading1.Render(m.Config.Surname))
 	}
 	infoString += "--------\n"
-	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Default.Render(m.Species))
-	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Default.Render(m.Gender))
-	infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Default.Render(m.Pronouns))
-	infoString += fmt.Sprintf("\n%s \n", getColorPalette(m))
+
+	if m.Config.Species != "" {
+		infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Species"), style.Default.Render(m.Config.Species))
+	}
+	if m.Config.Gender != "" {
+		infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Gender"), style.Default.Render(m.Config.Gender))
+	}
+	if m.Config.Pronouns != "" {
+		infoString += fmt.Sprintf("%s: %s\n", style.Key.Render("Pronouns"), style.Default.Render(m.Config.Pronouns))
+	}
+	if len(m.Config.Palette) != 0 {
+		infoString += fmt.Sprintf("\n%s \n", getColorPalette(m))
+	}
+
+	// Add OtherData key-value pairs
+	if len(m.Config.OtherData) > 0 {
+		infoString += "\n" + style.Heading2.Render("Other Info") + "\n"
+		for k, v := range m.Config.OtherData {
+			infoString += fmt.Sprintf("%s: %s\n", style.Key.Render(k), style.Default.Render(v))
+		}
+	}
+
 	return infoString
 }

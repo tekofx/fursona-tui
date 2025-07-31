@@ -16,12 +16,7 @@ const minHeight = 25
 type Model struct {
 	width         int
 	height        int
-	Name          string
-	Surname       string
-	Species       string
-	Gender        string
-	Pronouns      string
-	Palette       []string
+	Config        config.Config
 	textViewport  viewport.Model
 	imageViewPort viewport.Model
 }
@@ -29,14 +24,9 @@ type Model struct {
 func InitialModel() Model {
 	textViewport := viewport.New(150, 50)
 	imageViewport := viewport.New(50, 50)
-	config := config.ReadConfig()
+	cfg := config.ReadConfig()
 	return Model{
-		Name:          config.Name,
-		Surname:       config.Surname,
-		Species:       config.Species,
-		Gender:        config.Gender,
-		Pronouns:      config.Pronouns,
-		Palette:       config.Palette,
+		Config:        *cfg,
 		textViewport:  textViewport,
 		imageViewPort: imageViewport,
 	}
@@ -56,7 +46,6 @@ func (m Model) View() string {
 			Align(lipgloss.Center)
 		return style.Render(msg)
 	}
-
 	return lipgloss.JoinHorizontal(lipgloss.Center, " ", m.imageViewPort.View(), "  ", m.textViewport.View(), " ")
 
 }

@@ -10,12 +10,13 @@ import (
 )
 
 type Config struct {
-	Name     string   `json:"name"`
-	Surname  string   `json:"surname"`
-	Species  string   `json:"species"`
-	Gender   string   `json:"gender"`
-	Pronouns string   `json:"pronouns"`
-	Palette  []string `json:"palette"`
+	Name      string            `json:"name"`
+	Surname   string            `json:"surname"`
+	Species   string            `json:"species"`
+	Gender    string            `json:"gender"`
+	Pronouns  string            `json:"pronouns"`
+	Palette   []string          `json:"palette"`
+	OtherData map[string]string `json:"otherData"`
 }
 
 func GetConfigPath() string {
@@ -45,7 +46,7 @@ func GetConfigPath() string {
 	return configDir
 }
 
-func defaultConfig() Config {
+func DefaultConfig() Config {
 
 	palette := [2]string{"#FFFFFF", "#000000"}
 	return Config{
@@ -55,6 +56,10 @@ func defaultConfig() Config {
 		Gender:   "Gender",
 		Pronouns: "Pronouns",
 		Palette:  palette[:],
+		OtherData: map[string]string{
+			"favorite_food": "pizza",
+			"hobby":         "drawing",
+		},
 	}
 }
 
@@ -66,7 +71,7 @@ func ReadConfig() *Config {
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		if err := os.MkdirAll(configPath, 0755); err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create config directory:", err)
-			config := defaultConfig()
+			config := DefaultConfig()
 			return &config
 		}
 	}
@@ -74,7 +79,7 @@ func ReadConfig() *Config {
 	// Check if config file exists
 	if _, err := os.Stat(settingsFilePath); os.IsNotExist(err) {
 		// Create default config
-		defaultConfig := defaultConfig()
+		defaultConfig := DefaultConfig()
 		file, err := os.Create(settingsFilePath)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create config file:", err)
