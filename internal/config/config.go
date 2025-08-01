@@ -49,7 +49,7 @@ func DefaultConfig() Config {
 		Name:    "Name",
 		Palette: palette[:],
 		Data: map[string]string{
-			"species":  "Species",
+			"Species":  "Species",
 			"Gender":   "Gender",
 			"Pronouns": "Pronouns",
 		},
