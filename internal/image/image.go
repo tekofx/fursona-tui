@@ -52,7 +52,7 @@ func Image2Ascii(size int) string {
 	// Set size of image
 
 	// Aspect ratio correction factor (experiment with 0.5–0.6)
-	aspectRatio := 0.45
+	aspectRatio := 0.4
 	newHeight := uint(float64(size) * aspectRatio)
 
 	// Resize image

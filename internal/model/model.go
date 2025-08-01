@@ -77,7 +77,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			// Wrap content before setting it.
 			m.textViewport.SetContent(textContent)
-			m.imageViewPort.SetContent(image.Image2Ascii(msg.Width / 2))
+			m.imageViewPort.SetContent(image.Image2Ascii((msg.Width / 2) - 2))
 
 			m.textViewport.GotoBottom()
 		}
