@@ -8,10 +8,10 @@ import (
 
 func (m Model) View() string {
 
-	if m.width == 0 {
+	if !m.ready {
 		return ""
 	}
-	if (m.width != 0 && m.width < minWidth) || (m.height != 0 && m.height < minHeight) {
+	if m.width < minWidth || m.height < minHeight {
 		// Center the message using Lipgloss
 		msg := fmt.Sprintf("Window too small!\nPlease resize your terminal.\n%dx%d", m.width, m.height)
 		style := lipgloss.NewStyle().

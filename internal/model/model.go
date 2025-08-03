@@ -17,6 +17,7 @@ type Model struct {
 	height            int
 	verticalPadding   int
 	horizontalPadding int
+	ready             bool
 	Config            config.Config
 	textViewport      viewport.Model
 	imageViewPort     viewport.Model
@@ -31,6 +32,7 @@ func InitialModel() Model {
 		help:              help.New(),
 		Config:            *cfg,
 		verticalPadding:   1,
+		ready:             false,
 		horizontalPadding: 2,
 		textViewport:      textViewport,
 		imageViewPort:     imageViewport,

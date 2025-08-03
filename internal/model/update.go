@@ -2,18 +2,11 @@ package model
 
 import (
 	"github.com/charmbracelet/bubbles/key"
+	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/tekofx/fursona-tui/internal/image"
 )
 
-func (m *Model) sizeInputs() {
-
-	m.textViewport.Width = (m.width / 2)
-	m.textViewport.Height = m.height - m.verticalPadding
-
-	m.imageViewPort.Width = (m.width / 2)
-	m.imageViewPort.Height = m.height - m.verticalPadding
-}
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	switch msg := msg.(type) {
@@ -23,15 +16,21 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.height = msg.Height
 		m.width = msg.Width
 
-		if m.width > minWidth && m.height > minHeight {
-			// Get info to show
-			textContent := GetStrings(m)
+		if !m.ready {
+			m.textViewport = viewport.New(m.width/2-2, m.height-m.verticalPadding)
+			m.imageViewPort = viewport.New(m.width/2, m.height-m.verticalPadding)
 
-			// Wrap content before setting it.
-			m.textViewport.SetContent(textContent)
+			m.textViewport.SetContent(GetStrings(m))
+			m.imageViewPort.SetContent(image.Image2Ascii((msg.Width / 2) - 2))
+			m.ready = true
+		} else {
+			m.textViewport.Width = (m.width / 2)
+			m.textViewport.Height = m.height - m.verticalPadding
+
+			m.imageViewPort.Width = (m.width / 2)
+			m.imageViewPort.Height = m.height - m.verticalPadding
 			m.imageViewPort.SetContent(image.Image2Ascii((msg.Width / 2) - 2))
 
-			m.textViewport.GotoBottom()
 		}
 
 	case tea.KeyMsg:
@@ -47,7 +46,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		}
 	}
-	m.sizeInputs()
 
 	return m, nil
 }
