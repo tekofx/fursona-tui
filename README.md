@@ -28,7 +28,8 @@ The data shown can be customized in the JSON file `$HOME/.config/fursona-tui/set
     "Gender": "Gender",
     "Pronouns": "Pronouns",
     "Species": "Species"
-  }
+  },
+  "quote": "No one is born into this world to be alone"
 }
 ```
 

@@ -30,7 +30,26 @@ func getColorPalette(m Model) string {
 
 }
 
-func GetInfoString(m Model) string {
+// Returns the data formatted as strings
+func GetStrings(m Model) string {
+	output := ""
+
+	output += getInfoString(m)
+	if m.Config.Quote != "" {
+		output += fmt.Sprintf("\n%s\n", getQuote(m))
+	}
+	if len(m.Config.Palette) != 0 {
+		output += fmt.Sprintf("\n%s \n", getColorPalette(m))
+	}
+
+	return output
+}
+
+func getQuote(m Model) string {
+	return style.Quote.Render(m.Config.Quote)
+}
+
+func getInfoString(m Model) string {
 	infoString := ""
 	infoString += style.Heading1.Render(m.Config.Name)
 
@@ -40,10 +59,6 @@ func GetInfoString(m Model) string {
 
 			infoString += fmt.Sprintf("%s: %s\n", style.Key.Render(k), style.Default.Render(v))
 		}
-	}
-
-	if len(m.Config.Palette) != 0 {
-		infoString += fmt.Sprintf("\n%s \n", getColorPalette(m))
 	}
 
 	return infoString

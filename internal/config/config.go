@@ -13,6 +13,7 @@ type Config struct {
 	Name    string            `json:"name"`
 	Palette []string          `json:"palette"`
 	Data    map[string]string `json:"data"`
+	Quote   string            `json:"quote`
 }
 
 func GetConfigPath() string {

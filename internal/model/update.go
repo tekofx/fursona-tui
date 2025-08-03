@@ -25,7 +25,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		if m.width > minWidth && m.height > minHeight {
 			// Get info to show
-			textContent := GetInfoString(m)
+			textContent := GetStrings(m)
 
 			// Wrap content before setting it.
 			m.textViewport.SetContent(textContent)
