@@ -1,6 +1,6 @@
 # Fursona TUI
 
-✨Show info about your fursona right in your terminal✨
+✨Show info about your fursona or OC right in your terminal✨
 ![](assets/Screenshot.png)
 
 ## Installation
