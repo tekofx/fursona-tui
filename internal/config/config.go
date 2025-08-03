@@ -10,10 +10,11 @@ import (
 )
 
 type Config struct {
-	Name    string            `json:"name"`
-	Palette []string          `json:"palette"`
-	Data    map[string]string `json:"data"`
-	Quote   string            `json:"quote`
+	Name        string            `json:"name"`
+	Palette     []string          `json:"palette"`
+	Data        map[string]string `json:"data"`
+	Quote       string            `json:"quote`
+	Description string            `json:"description"`
 }
 
 func GetConfigPath() string {

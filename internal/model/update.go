@@ -16,15 +16,15 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.height = msg.Height
 		m.width = msg.Width
 
+		m.textViewport.GotoBottom()
 		if !m.ready {
-			m.textViewport = viewport.New(m.width/2-2, m.height-m.verticalPadding)
+			m.textViewport = viewport.New(m.width, m.height-m.verticalPadding)
 			m.imageViewPort = viewport.New(m.width/2, m.height-m.verticalPadding)
-
 			m.textViewport.SetContent(GetStrings(m))
 			m.imageViewPort.SetContent(image.Image2Ascii((msg.Width / 2) - 2))
 			m.ready = true
 		} else {
-			m.textViewport.Width = (m.width / 2)
+			m.textViewport.Width = (m.width)
 			m.textViewport.Height = m.height - m.verticalPadding
 
 			m.imageViewPort.Width = (m.width / 2)

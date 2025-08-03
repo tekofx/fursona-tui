@@ -10,7 +10,7 @@ import (
 func main() {
 
 	// Initialize our program
-	p := tea.NewProgram(model.InitialModel())
+	p := tea.NewProgram(model.InitialModel(), tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		log.Fatal(err)
 	}

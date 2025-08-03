@@ -8,6 +8,28 @@ import (
 	"github.com/tekofx/fursona-tui/internal/utils"
 )
 
+// Returns the data formatted as strings
+func GetStrings(m Model) string {
+
+	return getDescription(m)
+	output := ""
+
+	output += getInfoString(m)
+
+	if m.Config.Description != "" {
+		output += fmt.Sprintf("\n%s\n", getDescription(m))
+	}
+
+	if m.Config.Quote != "" {
+		output += fmt.Sprintf("\n%s\n", getQuote(m))
+	}
+	if len(m.Config.Palette) != 0 {
+		output += fmt.Sprintf("\n%s \n", getColorPalette(m))
+	}
+
+	return output
+}
+
 func getColorPalette(m Model) string {
 
 	output := style.Heading2.Render("Color Palette")
@@ -30,21 +52,6 @@ func getColorPalette(m Model) string {
 
 }
 
-// Returns the data formatted as strings
-func GetStrings(m Model) string {
-	output := ""
-
-	output += getInfoString(m)
-	if m.Config.Quote != "" {
-		output += fmt.Sprintf("\n%s\n", getQuote(m))
-	}
-	if len(m.Config.Palette) != 0 {
-		output += fmt.Sprintf("\n%s \n", getColorPalette(m))
-	}
-
-	return output
-}
-
 func getQuote(m Model) string {
 	return style.Quote.Render(m.Config.Quote)
 }
@@ -62,4 +69,8 @@ func getInfoString(m Model) string {
 	}
 
 	return infoString
+}
+
+func getDescription(m Model) string {
+	return m.Config.Description
 }
