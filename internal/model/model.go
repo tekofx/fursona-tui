@@ -11,13 +11,15 @@ const minWidth = 100
 const minHeight = 25
 
 type Model struct {
-	keys          keyMap
-	help          help.Model
-	width         int
-	height        int
-	Config        config.Config
-	textViewport  viewport.Model
-	imageViewPort viewport.Model
+	keys              keyMap
+	help              help.Model
+	width             int
+	height            int
+	verticalPadding   int
+	horizontalPadding int
+	Config            config.Config
+	textViewport      viewport.Model
+	imageViewPort     viewport.Model
 }
 
 func InitialModel() Model {
@@ -25,11 +27,13 @@ func InitialModel() Model {
 	imageViewport := viewport.New(50, 50)
 	cfg := config.ReadConfig()
 	return Model{
-		keys:          keys,
-		help:          help.New(),
-		Config:        *cfg,
-		textViewport:  textViewport,
-		imageViewPort: imageViewport,
+		keys:              keys,
+		help:              help.New(),
+		Config:            *cfg,
+		verticalPadding:   1,
+		horizontalPadding: 2,
+		textViewport:      textViewport,
+		imageViewPort:     imageViewport,
 	}
 }
 func (m Model) Init() tea.Cmd {

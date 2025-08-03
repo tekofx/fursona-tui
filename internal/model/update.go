@@ -9,10 +9,10 @@ import (
 func (m *Model) sizeInputs() {
 
 	m.textViewport.Width = (m.width / 2) - 2
-	m.textViewport.Height = m.height - 2
+	m.textViewport.Height = m.height - m.verticalPadding
 
 	m.imageViewPort.Width = (m.width / 2) - 2
-	m.imageViewPort.Height = m.height - 2
+	m.imageViewPort.Height = m.height - m.verticalPadding
 }
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
@@ -37,6 +37,11 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, m.keys.Help):
+			if m.help.ShowAll {
+				m.verticalPadding = 1
+			} else {
+				m.verticalPadding = 2
+			}
 			m.help.ShowAll = !m.help.ShowAll
 		case key.Matches(msg, m.keys.Quit):
 			return m, tea.Quit
