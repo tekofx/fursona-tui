@@ -8,10 +8,10 @@ import (
 
 func (m *Model) sizeInputs() {
 
-	m.textViewport.Width = (m.width / 2) - 2
+	m.textViewport.Width = (m.width / 2)
 	m.textViewport.Height = m.height - m.verticalPadding
 
-	m.imageViewPort.Width = (m.width / 2) - 2
+	m.imageViewPort.Width = (m.width / 2)
 	m.imageViewPort.Height = m.height - m.verticalPadding
 }
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
