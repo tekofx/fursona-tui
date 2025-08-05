@@ -8,7 +8,7 @@
 Install using go
 
 ```sh
-go get github.com/tekofx/ych
+go install github.com/tekofx/ych@latest
 ```
 
 ## Configuration
