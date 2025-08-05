@@ -31,7 +31,7 @@ func InitialModel() Model {
 		keys:              keys,
 		help:              help.New(),
 		Config:            *cfg,
-		verticalPadding:   1,
+		verticalPadding:   2,
 		ready:             false,
 		horizontalPadding: 2,
 		textViewport:      textViewport,

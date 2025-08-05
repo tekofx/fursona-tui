@@ -2,7 +2,6 @@ package model
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -22,9 +21,7 @@ func (m Model) View() string {
 		return style.Render(msg)
 	}
 
-	vPad := strings.Repeat(" ", m.verticalPadding)
-
 	horizontal := lipgloss.JoinHorizontal(lipgloss.Center, " ", m.imageViewPort.View(), "  ", m.textViewport.View(), " ")
-	return lipgloss.JoinVertical(lipgloss.Center, vPad, horizontal, m.help.View(m.keys))
+	return lipgloss.JoinVertical(lipgloss.Center, horizontal, m.help.View(m.keys))
 
 }
