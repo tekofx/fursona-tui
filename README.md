@@ -1,7 +1,7 @@
 # YCH (Your Character Here)
 
 ✨Show info about your character right in your terminal✨
-![](assets/Screenshot.png)
+![](assets/Screenshot1.png)
 
 ## Installation
 
@@ -35,11 +35,36 @@ The data shown can be customized in the JSON file `$HOME/.config/ych/settings.js
 
 The fields in data can be any pair of strings.
 
-# Example
+# Examples
+
+![](assets/Screenshot1.png)
+
+```json
+{
+  "name": "Teko",
+  "palette": [
+    "#00DBFF",
+    "#2C7DE6",
+    "#F7F7F7",
+    "#A0A0A0",
+    "#2D2D2D",
+    "#E6312B",
+    "#F0A19C",
+    "#11B55D",
+    "#E2E565"
+  ],
+  "data": {
+    "Species": "Arctic Fox",
+    "Gender": "Male",
+    "Pronouns": "He/Him",
+    "Age": "23",
+    "Favorite Food": "🧇 Waffle"
+  },
+  "quote": "El honor ha muerto, pero veré lo que puedo hacer."
+}
+```
 
 ![](assets/Screenshot2.png)
-
-## Config
 
 ```json
 {
