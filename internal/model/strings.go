@@ -52,7 +52,7 @@ func getColorPalette(m Model) string {
 }
 
 func getQuote(m Model) string {
-	return style.Quote.Render(m.Config.Quote)
+	return style.Quote.Render(fmt.Sprintf("\"%s\"", m.Config.Quote))
 }
 
 func getInfoString(m Model) string {
