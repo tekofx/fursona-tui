@@ -40,9 +40,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Help):
 			m.help.ShowAll = !m.help.ShowAll
 			if m.help.ShowAll {
-				m.verticalPadding = 5
-			} else {
 				m.verticalPadding = 2
+			} else {
+				m.verticalPadding = 1
 			}
 			sizeChange(&m)
 		case key.Matches(msg, m.keys.Quit):
