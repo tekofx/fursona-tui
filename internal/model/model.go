@@ -4,7 +4,7 @@ import (
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/tekofx/fursona-tui/internal/config"
+	"github.com/tekofx/ych/internal/config"
 )
 
 const minWidth = 100

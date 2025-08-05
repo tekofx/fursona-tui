@@ -4,21 +4,20 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/tekofx/fursona-tui/internal/style"
-	"github.com/tekofx/fursona-tui/internal/utils"
+	"github.com/tekofx/ych/internal/style"
+	"github.com/tekofx/ych/internal/utils"
 )
 
 // Returns the data formatted as strings
 func GetStrings(m Model) string {
 
-	return getDescription(m)
 	output := ""
 
 	output += getInfoString(m)
 
-	if m.Config.Description != "" {
-		output += fmt.Sprintf("\n%s\n", getDescription(m))
-	}
+	// if m.Config.Description != "" {
+	// 	output += fmt.Sprintf("\n%s\n", getDescription(m))
+	// }
 
 	if m.Config.Quote != "" {
 		output += fmt.Sprintf("\n%s\n", getQuote(m))

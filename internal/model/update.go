@@ -4,7 +4,7 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/tekofx/fursona-tui/internal/image"
+	"github.com/tekofx/ych/internal/image"
 )
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {

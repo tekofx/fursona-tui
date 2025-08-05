@@ -21,7 +21,6 @@ func (m Model) View() string {
 		return style.Render(msg)
 	}
 
-	return m.textViewport.View()
 	horizontal := lipgloss.JoinHorizontal(lipgloss.Center, " ", m.imageViewPort.View(), "  ", m.textViewport.View(), " ")
 	return lipgloss.JoinVertical(lipgloss.Center, "\n", horizontal, m.help.View(m.keys))
 

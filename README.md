@@ -8,17 +8,17 @@
 Install using go
 
 ```sh
-go get github.com/tekofx/fursona-tui
+go get github.com/tekofx/ych
 ```
 
 ## Configuration
 
-- In `$HOME/.config/fursona-tui` place a picture (.JPG or .PNG).
-- Run the app `fursona-tui`. This will generate a new settings.json.
+- In `$HOME/.config/ych` place a picture (.JPG or .PNG).
+- Run the app `ych`. This will generate a new settings.json.
 
 ### Customize
 
-The data shown can be customized in the JSON file `$HOME/.config/fursona-tui/settings.json`.
+The data shown can be customized in the JSON file `$HOME/.config/ych/settings.json`.
 
 ```json
 {

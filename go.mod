@@ -1,4 +1,4 @@
-module github.com/tekofx/fursona-tui
+module github.com/tekofx/ych
 
 go 1.24.5
 

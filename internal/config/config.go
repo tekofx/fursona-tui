@@ -29,16 +29,16 @@ func GetConfigPath() string {
 				fmt.Fprintln(os.Stderr, "Failed to get home directory:", err)
 				return ""
 			}
-			return filepath.Join(dir, "fursona-tui")
+			return filepath.Join(dir, "ych")
 		}
-		configDir = filepath.Join(dir, "fursona-tui")
+		configDir = filepath.Join(dir, "ych")
 	} else {
 		dir, err := os.UserHomeDir()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to get home directory:", err)
 			return ""
 		}
-		configDir = filepath.Join(dir, ".config", "fursona-tui")
+		configDir = filepath.Join(dir, ".config", "ych")
 	}
 
 	return configDir
